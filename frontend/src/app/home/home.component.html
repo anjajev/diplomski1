@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecondHandApp</title>
+    <link rel="stylesheet" href="home.component.css">
+</head>
+<body>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Second Hand App</h1>
+            <h3>Sva odeća na jednom mestu!</h3>
+            <a href="#" class="btn">Kupujte</a>
+            <p class="register-link">Nemate nalog? <a routerLink="/register">Registrujte se ovde</a></p>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="categories">
+            <div class="category" (click)="navigateToShopGirls()">
+                <img src="../assets/levo4.jpg" alt="Shop Girls">
+                <div class="overlay">
+                  <h2>Ženska odeća</h2>
+                </div>
+              </div>
+              
+                        <div class="category">
+                <img src="../assets/desno3.jpg" alt="Shop Boys">
+                <div class="overlay">
+                    <h2>Muška odeća</h2>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+</body>
+</html>

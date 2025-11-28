@@ -1,0 +1,190 @@
+<div class="form-container">
+  <h1>Dodajte artikal</h1>
+
+  <!-- Poruka o uspešnom dodavanju -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <!-- Upload sekcija -->
+  <div class="form-group">
+    <label class="field-label">Fotografije artikla</label>
+
+    <div class="file-upload-wrapper">
+      <!-- JEDINO DUGME -->
+      <button
+        type="button"
+        class="file-upload-btn"
+        (click)="imagesInput.click()"
+      >
+        <span class="file-upload-icon">＋</span>
+        <span>Dodaj artikal</span>
+      </button>
+
+      <span class="file-upload-hint">
+        Za svaki artikal izaberite jednu ili više slika (preporuka: jasne slike
+        na svetloj pozadini).
+      </span>
+
+      <input
+        type="file"
+        #imagesInput
+        (change)="onFileChange($event)"
+        accept="image/*"
+        multiple
+      />
+    </div>
+  </div>
+
+  <!-- Kartice artikala -->
+  <div *ngIf="artikli.length > 0" class="artikli-container">
+    <div *ngFor="let artikal of artikli; let i = index" class="artikal-form">
+      <span class="remove-icon" (click)="removeArtikal(i)">✖</span>
+
+      <!-- Carousel sa više slika -->
+      <div
+        class="artikal-image-wrapper"
+        *ngIf="artikal.images && artikal.images.length > 0"
+      >
+        <img
+          [src]="artikal.images[artikal.currentImageIndex]?.preview"
+          alt="Artikal slika"
+          class="artikal-image"
+        />
+
+        <button
+          type="button"
+          class="carousel-arrow left"
+          (click)="prevImage(i)"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          class="carousel-arrow right"
+          (click)="nextImage(i)"
+        >
+          ›
+        </button>
+
+        <div class="carousel-dots">
+          <span
+            *ngFor="let image of artikal.images; let j = index"
+            class="dot"
+            [class.active]="j === artikal.currentImageIndex"
+            (click)="goToImage(i, j)"
+          ></span>
+        </div>
+      </div>
+
+      <div class="artikal-details">
+        <div class="ai-status" *ngIf="artikal.aiLoading">
+          🔍 Prepoznajemo tip, pol i boju...
+        </div>
+        <div class="ai-status error" *ngIf="artikal.aiError">
+          ⚠ {{ artikal.aiError }}
+        </div>
+
+        <label for="tip-{{ i }}">Tip</label>
+        <select
+          id="tip-{{ i }}"
+          [(ngModel)]="artikal.tip"
+          name="tip-{{ i }}"
+          class="select"
+        >
+          <option value="">(nije izabrano)</option>
+          <option value="majica">Majica</option>
+          <option value="haljina">Haljina</option>
+          <option value="farmerice">Farmerice</option>
+          <option value="jakna">Jakna</option>
+          <option value="duks">Duks</option>
+          <option value="suknja">Suknja</option>
+          <option value="kaput">Kaput</option>
+          <option value="kosulja">Košulja</option>
+          <option value="sorts">Šorts</option>
+          <option value="trenirka">Trenerka</option>
+          <option value="bluza">Bluza</option>
+        </select>
+
+        <label for="kategorija-{{ i }}">Kategorija</label>
+        <select
+          id="kategorija-{{ i }}"
+          [(ngModel)]="artikal.kategorija"
+          name="kategorija-{{ i }}"
+          class="select"
+        >
+          <option value="">(nije izabrano)</option>
+          <option value="muski">Muški</option>
+          <option value="zenski">Ženski</option>
+          <option value="unisex">Unisex</option>
+        </select>
+
+        <label for="boja-{{ i }}">Boja</label>
+        <select
+          id="boja-{{ i }}"
+          [(ngModel)]="artikal.boja"
+          name="boja-{{ i }}"
+          class="select"
+        >
+          <option value="">(nije izabrano)</option>
+          <option value="bela">Bela</option>
+          <option value="crna">Crna</option>
+          <option value="roze">Roze</option>
+          <option value="crvena">Crvena</option>
+          <option value="plava">Plava</option>
+          <option value="zelena">Zelena</option>
+          <option value="žuta">Žuta</option>
+          <option value="siva">Siva</option>
+          <option value="narandžasta">Narandžasta</option>
+          <option value="ljubičasta">Ljubićasta</option>
+          <option value="braon">Braon</option>
+        </select>
+
+        <label for="velicina-{{ i }}">Veličina *</label>
+        <select
+          id="velicina-{{ i }}"
+          [(ngModel)]="artikal.velicina"
+          name="velicina-{{ i }}"
+          (change)="validateField(artikal, i)"
+          class="select"
+        >
+          <option value="">(izaberite veličinu)</option>
+          <option value="XS">XS</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+          <option value="XXXL">XXXL</option>
+          <option value="Jedna veličina">Jedna veličina</option>
+        </select>
+
+        <label for="cena-{{ i }}">Cena *</label>
+        <input
+          type="number"
+          id="cena-{{ i }}"
+          [(ngModel)]="artikal.cena"
+          name="cena-{{ i }}"
+          placeholder="Cena u dinarima"
+          (input)="validateField(artikal, i)"
+        />
+
+        <label for="opis-{{ i }}">Opis (opciono)</label>
+        <textarea
+          id="opis-{{ i }}"
+          [(ngModel)]="artikal.opis"
+          name="opis-{{ i }}"
+          placeholder="Materijal, stanje, brend, kroj..."
+        ></textarea>
+
+        <div *ngIf="errors[i]" class="error">
+          {{ errors[i] }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="onSubmit()" [disabled]="artikli.length === 0">
+    Sačuvaj artikle
+  </button>
+</div>

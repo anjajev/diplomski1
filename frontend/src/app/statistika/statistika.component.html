@@ -1,0 +1,11 @@
+<div class="statistika-container">
+    <h1>Statistika Narudžbina</h1>
+
+    <div class="chart-container">
+      <canvas id="salesChart"></canvas>
+      <canvas id="categoryChart"></canvas>
+    </div>
+
+    <div id="loading" class="loading" *ngIf="!salesChart">Učitavanje podataka...</div>
+    <div id="no-data" class="no-data" *ngIf="salesChart && salesChart.data.datasets[0].data.length === 0">Nema podataka za prikaz.</div>
+</div>

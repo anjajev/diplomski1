@@ -1,0 +1,35 @@
+<div class="order-list">
+  <h2>Poručeni artikli</h2>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngFor="let narudzbina of narudzbine" class="order-card">
+    <h3>Porudžbina br. {{ narudzbina._id }}</h3>
+    <p><strong>Ime:</strong> {{ narudzbina.imeKupca }}</p>
+    <p><strong>Prezime:</strong> {{ narudzbina.prezimeKupca }}</p>
+    <p><strong>Adresa dostave:</strong> {{ narudzbina.adresaDostave }}</p>
+    <p><strong>Kontakt:</strong> {{ narudzbina.kontaktTelefon }}</p>
+
+    <div class="artikli-container">
+      <div class="artikal-card" *ngFor="let artikal of narudzbina.artikli">
+        <img
+          [src]="getArtikalImage(artikal.slike)"
+          alt="Artikal slika"
+          class="artikal-image"
+        />
+        <div class="artikal-info">
+          <h3>{{ artikal.tip }}</h3>
+          <p>Veličina: {{ artikal.velicina }}</p>
+          <p>Boja: {{ artikal.boja }}</p>
+          <p>Cena: {{ artikal.cena }} din</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Ukupna cena: {{ narudzbina.ukupnaCena }} din</p>
+
+    <button (click)="markAsSent(narudzbina._id)">Pošalji</button>
+  </div>
+</div>

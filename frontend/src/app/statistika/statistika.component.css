@@ -1,0 +1,23 @@
+.statistika-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Visina grafikona */
+}
+
+.loading, .no-data {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 20px;
+}

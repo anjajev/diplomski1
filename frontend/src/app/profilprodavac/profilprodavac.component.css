@@ -1,0 +1,81 @@
+/* Glavna struktura */
+.profile-container {
+  display: flex;
+  background-color: #f0e4c4;
+  min-height: 100vh; /* Osigurava da zauzme celokupnu visinu */
+}
+
+.profile-content {
+  width: 80%;
+  padding: 20px;
+}
+
+
+  /* Leva strana (sidebar) sa slikom */
+  .profile-sidebar {
+    width: 20%; /* Širina leve strane */
+    background-image: url('/assets/registracija.jpg'); /* Tvoja slika za pozadinu */
+    background-size: cover; /* Osigurava da slika prekriva celu stranu */
+    background-position: center; /* Centriranje slike */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centriranje sadržaja vertikalno */
+    align-items: center; /* Centriranje sadržaja horizontalno */
+    color: white;
+    padding: 20px;
+    position: relative;
+    height: 100vh; /* Osigurava da sidebar zauzima celu visinu */
+  }
+  
+  /* Tekst "Zdravo" sada je centriran vertikalno i horizontalno */
+  .sidebar-text {
+    font-size: 32px; /* Veći tekst */
+    font-weight: bold;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8), /* Tamna senka za dubinu */
+                 0 0 15px rgba(255, 255, 255, 0.5); /* Sjajni efekat oko slova */
+    margin-bottom: 40px; /* Razmak ispod "Zdravo" teksta */
+    text-align: center; /* Centriran tekst */
+  }
+  
+  /* Omotač za centriranje linkova */
+  .profile-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centriranje u horizontalnom smeru */
+    justify-content: center; /* Centriranje u vertikalnom smeru */
+    flex-grow: 1; /* Raste kako bi se centriralo vertikalno */
+  }
+  
+  .profile-sidebar ul li {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .profile-sidebar ul li a {
+    text-decoration: none;
+    color: white; /* Boja teksta linkova preko slike */
+    font-size: 20px; /* Veći tekst za linkove */
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Dodavanje senke na linkove */
+    transition: color 0.3s ease, background-color 0.3s ease, text-shadow 0.3s ease; /* Animacija za hover */
+  }
+  
+  .profile-sidebar ul li a:hover {
+    color: yellow; /* Žuta boja teksta pri hoveru */
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9), /* Pojačana senka pri hoveru */
+                 0 0 10px rgba(255, 255, 0, 0.8); /* Sjaj oko slova pri hoveru */
+  }
+  
+  /* Desna strana (glavni sadržaj) */
+  .profile-content {
+    width: 80%;
+    padding: 20px;
+  }
+  

@@ -1,0 +1,53 @@
+<div class="purchase-history-container">
+  <h2>Prethodne kupovine</h2>
+
+  <!-- Prolazimo kroz svaku narudžbinu -->
+  <div *ngFor="let narudzbina of narudzbine; let i = index" class="order-section">
+    <h3 [ngClass]="{'green-status': narudzbina.status === 'Poslato', 'red-status': narudzbina.status === 'Potvrdjeno'}">
+      Status: {{ narudzbina.status }}
+    </h3>
+
+    <!-- Prikaz dugmeta za potvrđivanje prijema -->
+    <button *ngIf="narudzbina.status === 'Poslato'" (click)="confirmDelivery(narudzbina._id)">Potvrdi prijem</button>
+    <!-- Prolazimo kroz artikle u narudžbini -->
+     
+    <div class="artikli-container">
+      <div class="artikal-card" *ngFor="let artikal of narudzbina.artikli">
+        <img [src]="getArtikalImage(artikal.slike)" alt="Artikal slika" class="artikal-image" />
+        <div class="artikal-info">
+          <h3>{{ artikal.tip }}</h3>
+          <p>Veličina: {{ artikal.velicina }}</p>
+          <p>Boja: {{ artikal.boja }}</p>
+          <p>Cena: {{ artikal.cena }} din</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prikaz ukupne cene -->
+    <p>Ukupna cena: {{ narudzbina.ukupnaCena }} din</p>
+
+  </div>
+</div>
+
+<div *ngIf="isReviewModalOpen" class="review-modal">
+  <div class="modal-content">
+    <h2>Ostavite recenziju</h2>
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+      <div class="stars">
+        <i class="fa fa-star" (click)="rate(1)" [class.filled]="ocena >= 1"></i>
+        <i class="fa fa-star" (click)="rate(2)" [class.filled]="ocena >= 2"></i>
+        <i class="fa fa-star" (click)="rate(3)" [class.filled]="ocena >= 3"></i>
+        <i class="fa fa-star" (click)="rate(4)" [class.filled]="ocena >= 4"></i>
+        <i class="fa fa-star" (click)="rate(5)" [class.filled]="ocena >= 5"></i>
+      </div>
+
+      <label for="komentar">Komentar:</label>
+      <textarea id="komentar" formControlName="komentar" placeholder="Ostavite komentar"></textarea>
+
+      <div class="modal-buttons">
+        <button type="submit" [disabled]="!reviewForm.valid">Pošalji recenziju</button>
+        <button type="button" (click)="closeReviewModal()">Zatvori</button>
+      </div>
+    </form>
+  </div>
+</div>

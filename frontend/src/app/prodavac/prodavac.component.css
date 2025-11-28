@@ -1,0 +1,235 @@
+.store-profile-page {
+  padding: 20px;
+  background-color: #dce8ff;
+}
+
+.upper-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+/* Leva strana - Store info */
+.store-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.store-header {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Razmak između imena prodavnice i slike */
+  margin-bottom: 20px; /* Razmak ispod headera */
+}
+
+.store-header h2 {
+  font-size: 28px;
+  color: #552437;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f1a787;
+}
+
+.store-description {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+.add-to-favorites-btn {
+  background-color: #f1a787;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-family: 'Instrument Serif', serif;
+}
+
+.add-to-favorites-btn:hover {
+  background-color: #e09e7c;
+}
+
+/* Lokacija na mapi */
+.store-location {
+  flex: 1;
+  
+}
+
+.google-map {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Donji deo stranice - proizvodi */
+.related-products {
+  position: relative;
+  margin-top: 40px;
+}
+
+.artikli-container-wrapper {
+  overflow-x: auto; /* Horizontalni scrollbar */
+  overflow-y: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 10px; /* Razmak za scrollbar */
+}
+
+/* Stilizacija za scrollbar */
+.artikli-container-wrapper::-webkit-scrollbar {
+  height: 10px; /* Visina scrollbara */
+}
+
+.artikli-container-wrapper::-webkit-scrollbar-thumb {
+  background-color: #f1a787; /* Boja scrollbara */
+  border-radius: 10px;
+}
+
+.artikli-container-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #e09e7c;
+}
+
+.artikli-container-wrapper::-webkit-scrollbar-track {
+  background-color: #fdf4e3; /* Pozadina scrollbara */
+}
+
+.artikli-container {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Stilizacija kartica proizvoda */
+.artikal-card {
+  background-color: #fdf4e3;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  min-width: 200px; /* Osnovna širina za karticu */
+}
+
+.artikal-card:hover {
+  transform: scale(1.05);
+}
+
+.artikal-image {
+  max-width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.artikal-info {
+  font-size: 14px;
+  color: #333;
+}
+
+.category-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.category-filters a {
+  color: #552437; /* Boja teksta */
+  text-decoration: underline; /* Podvlačenje */
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.category-filters a:hover {
+  color: #7695FF; /* Promena boje na hover */
+  text-decoration: none; /* Uklanjanje podvlačenja na hover */
+}
+
+.reviews-section {
+  background-color: #dce8ff; /* Pozadina za sekciju recenzija */
+  padding: 20px;
+
+
+  margin-right:150px; /* Razmak između recenzija i mape */
+  
+}
+
+.review-card {
+  border: none; /* Uklanjanje ivica */
+  margin: 10px 0; /* Razmak između recenzija */
+  background-color: transparent; /* Uklanjanje bele pozadine */
+  transition: transform 0.3s ease;
+  margin-right: 20px;
+  text-align: center; /* Centriranje sadržaja unutar kartice recenzije */
+
+
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.stars {
+  display: flex;
+}
+
+.star {
+  color: gray; /* Boja za neispunjene zvezdice */
+  margin-right: 5px;
+  font-size: 54px; /* Veličina zvezdica */
+}
+
+.star.filled {
+  color: gold; /* Boja za ispunjene zvezdice */
+}
+
+.review-author {
+  font-size: 14px;
+  color: #777; /* Boja za ime kupca */
+  margin-top: 5px; /* Razmak iznad imena kupca */
+  text-align: center;
+}
+
+.review-comment {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px; /* Razmak iznad komentara */
+}
+
+.carousel {
+  display: flex;
+  align-items: center; /* Poravnava sve elemente vertikalno */
+  justify-content: center;
+}
+
+.carousel-control {
+  background-color: transparent;
+  border: none;
+  font-size: 60px; /* Veličina strelica */
+  color: #552437;
+  cursor: pointer;
+}
+
+.carousel-control.left {
+  margin-right: 10px; /* Razmak između leve strelice i zvezdica */
+}
+
+.carousel-control.right {
+  margin-left: 10px; /* Razmak između desne strelice i zvezdica */
+}

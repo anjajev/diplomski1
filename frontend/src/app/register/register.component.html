@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracija - PrvaRuka</title>
+    <link rel="stylesheet" href="register.component.css">
+</head>
+<body>
+    <div class="container">
+        <div class="image-section">
+            <!-- Ovdje možeš dodati dodatne stilove za sliku ako je potrebno -->
+        </div>
+        <div class="form-section">
+            <div class="form-container">
+                <h1>Registrujte se</h1>
+                <div *ngIf="!tipProfila" class="profile-type-selection">
+                    <h2>Izaberite tip profila</h2>
+                    <div class="profile-buttons">
+                        <button (click)="onTipProfilaChange('kupac')">KUPAC</button>
+                        <button (click)="onTipProfilaChange('prodavac')">PRODAVAC</button>
+                    </div>
+                    <span class="error" [class.visible]="submitted && !tipProfila">Odaberite tip profila</span>
+                </div>
+                <form *ngIf="tipProfila=='kupac'" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                    <label for="ime">Korisnicko ime</label>
+                    <input type="text" id="Korime" formControlName="Korime">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('Korime')?.touched && registrationForm.get('Korime')?.invalid">{{getUsernameErrorMessage()}}</span>
+
+                    <label for="ime">Ime</label>
+                    <input type="text" id="ime" formControlName="ime">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('ime')?.hasError('required')">Ime je obavezno</span>
+                
+                    <label for="prezime">Prezime</label>
+                    <input type="text" id="prezime" formControlName="prezime">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('prezime')?.hasError('required')">Prezime je obavezno</span>
+                
+                    <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+                        {{ getEmailErrorMessage() }}
+                    </span>
+
+                    <label for="lozinka">Lozinka</label>
+                    <input type="password" id="lozinka" formControlName="lozinka">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('lozinka')?.hasError('required')">Lozinka je obavezna</span>
+                
+                    <label for="lozinkaOpet">Potvrdite lozinku</label>
+                    <input type="password" id="lozinkaOpet" formControlName="lozinkaOpet">
+                    <span class="error" [class.visible]="submitted && (registrationForm.get('lozinkaOpet')?.invalid || registrationForm.hasError('mismatch'))">
+                      {{ getConfirmPasswordErrorMessage() }}
+                    </span>
+                    
+                
+                    <button type="submit">Registruj se</button>
+                </form>                
+                <form *ngIf="tipProfila === 'prodavac'" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+                    <label for="ime">Ime prodavnice</label>
+                    <input type="text" id="ime" formControlName="ime">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('ime')?.hasError('required')">Ime prodavnice je obavezno</span>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+                        {{ getEmailErrorMessage() }}
+                    </span>
+
+                    <label for="address">Adresa prodavnice</label>
+                    <input type="text" id="address" formControlName="address" placeholder="Unesite adresu">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('address')?.invalid">Adresa je obavezna</span>
+
+                    <label for="workingHours">Radno vreme</label>
+                    <div class="working-hours">
+                        <input type="time" id="workingHoursStart" formControlName="workingHoursStart">
+                        <label for="workingHoursEnd">-</label>
+                        <input type="time" id="workingHoursEnd" formControlName="workingHoursEnd">
+                    </div>
+                    
+
+                    <label for="contactInfo">Kontakt telefon</label>
+                    <input type="text" id="contactInfo" formControlName="contactInfo" placeholder="Unesite kontakt informacije">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('contactInfo')?.invalid">Kontakt informacije su obavezne</span>
+                    
+                    <label for="lozinka">Lozinka</label>
+                    <input type="password" id="lozinka" formControlName="lozinka">
+                    <span class="error" [class.visible]="submitted && registrationForm.get('lozinka')?.hasError('required')">Lozinka je obavezna</span>
+                
+                    <label for="lozinkaOpet">Potvrdite lozinku</label>
+                    <input type="password" id="lozinkaOpet" formControlName="lozinkaOpet">
+                    <span class="error" [class.visible]="submitted && (registrationForm.get('lozinkaOpet')?.invalid || registrationForm.hasError('mismatch'))">
+                      {{ getConfirmPasswordErrorMessage() }}
+                    </span>
+
+                    <button type="submit">Registruj se</button>
+                </form>
+                <p>Već imate nalog? <a href="/login">Prijavite se ovde</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

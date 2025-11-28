@@ -1,0 +1,18 @@
+<div class="profile-container">
+    <aside class="profile-sidebar">
+      <h2 class="sidebar-text">Zdravo, {{ userName }}!</h2> <!-- Dinamički prikaz imena korisnika -->
+      <ul>
+        <li><a routerLink="/profilprodavac/info">Profil</a></li>
+        <li><a routerLink="/profilprodavac/artikli">Dodajte artikle</a></li>
+        <li><a routerLink="/profilprodavac/poruceniartikli">Pregledajte porucene artikle</a></li>
+        <li><a routerLink="/profilprodavac/poslatiartikli">Pregledajte poslate artikle</a></li>
+        <li><a routerLink="/profilprodavac/news">Vesti</a></li>
+        <li><a routerLink="/profilprodavac/statistikaProdaje">Statistika prodaje</a></li>
+      </ul>
+    </aside>
+  
+    <section class="profile-content">
+      <router-outlet></router-outlet> <!-- Ovo prikazuje dinamički sadržaj -->
+    </section>
+  </div>
+  

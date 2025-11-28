@@ -1,0 +1,129 @@
+<div class="artikal-details-page">
+  <!-- Gornji deo stranice -->
+  <div class="upper-section">
+    <div class="artikal-info">
+      <!-- Leva strana - glavni artikal (carousel) -->
+      <div class="artikal-card-glavni">
+        <div
+          class="detalji-carousel-wrapper"
+          *ngIf="artikal.slike && artikal.slike.length > 0"
+        >
+          <!-- Trenutna slika iz niza -->
+          <img
+            [src]="getArtikalImage(artikal.slike[carouselIndex])"
+            alt="Artikal slika"
+            class="detalji-carousel-image"
+          />
+
+          <!-- Strelice -->
+          <button
+            class="detalji-carousel-arrow left"
+            type="button"
+            (click)="prevCarouselImage()"
+          >
+            ‹
+          </button>
+          <button
+            class="detalji-carousel-arrow right"
+            type="button"
+            (click)="nextCarouselImage()"
+          >
+            ›
+          </button>
+
+          <!-- Tačkice -->
+          <div class="detalji-carousel-dots">
+            <span
+              *ngFor="let slika of artikal.slike; let i = index"
+              class="dot"
+              [class.active]="i === carouselIndex"
+              (click)="goToCarouselImage(i)"
+            ></span>
+          </div>
+        </div>
+
+        <!-- Fallback ako nema sliku -->
+        <div
+          class="detalji-carousel-wrapper"
+          *ngIf="!artikal.slike || artikal.slike.length === 0"
+        >
+          <img
+            [src]="getArtikalImage(undefined)"
+            alt="Artikal slika"
+            class="detalji-carousel-image"
+          />
+        </div>
+      </div>
+
+      <!-- Desno od slike - opis artikla -->
+      <div class="artikal-description">
+        <h2>{{ artikal.tip }}</h2>
+        <p><strong>Veličina:</strong> {{ artikal.velicina }}</p>
+        <p><strong>Cena:</strong> {{ artikal.cena }} din</p>
+
+        <button
+          class="add-to-cart-btn"
+          (click)="addToCart(artikal._id); $event.stopPropagation()"
+        >
+          Dodaj u korpu
+        </button>
+        <br /><br />
+
+        <!-- Ovde možeš prebaciti na toggleFavourite -->
+        <button
+          class="add-to-cart-btn"
+          (click)="toggleFavourite(artikal._id); $event.stopPropagation()"
+        >
+          {{ isFavourite(artikal._id) ? 'Ukloni iz omiljenih' : 'Dodaj u omiljene' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Desna strana - prodavnica + mapa -->
+    <div class="artikal-location">
+      <div class="prodavac-info">
+        <h3>
+          Iz prodavnice
+          <a
+            [routerLink]="['/prodavac', prodavnica._id]"
+            class="prodavac-link"
+          >
+            {{ prodavnica.ime }}
+          </a>
+        </h3>
+        <img
+          [src]="getProdavnicaImage(prodavnica.slika)"
+          alt="Slika prodavnice"
+          class="prodavnica-image"
+        />
+      </div>
+
+      <h3>Lokacija proizvoda</h3>
+      <div id="map" class="google-map"></div>
+    </div>
+  </div>
+
+  <!-- Donji deo stranice - ostali proizvodi iz prodavnice -->
+  <div class="related-products">
+    <h3>Pogledajte ostale proizvode iz prodavnice {{ prodavnica.ime }}</h3>
+
+    <div class="artikli-container-wrapper">
+      <div class="artikli-container" #artikliContainer>
+        <div
+          class="artikal-card"
+          *ngFor="let relatedArtikal of relatedArtikli"
+          [routerLink]="['/artikal', relatedArtikal._id]"
+        >
+          <img
+            [src]="getArtikalImage(relatedArtikal.slike)"
+            alt="Artikal slika"
+            class="artikal-image"
+          />
+          <div class="artikal-info">
+            <p>{{ relatedArtikal.cena }} din</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

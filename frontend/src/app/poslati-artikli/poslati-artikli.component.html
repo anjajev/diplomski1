@@ -1,0 +1,57 @@
+<div class="order-list">
+  <h2>Poslati artikli</h2>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngFor="let narudzbina of narudzbine" class="order-card">
+    <h3
+      [ngClass]="{
+        'green-status': narudzbina.status === 'Potvrdjeno',
+        'red-status': narudzbina.status === 'Poslato'
+      }"
+    >
+      Status: {{ narudzbina.status }}
+    </h3>
+
+    <h3>Porudžbina br. {{ narudzbina._id }}</h3>
+    <p><strong>Ime:</strong> {{ narudzbina.imeKupca }}</p>
+    <p><strong>Prezime:</strong> {{ narudzbina.prezimeKupca }}</p>
+    <p><strong>Adresa dostave:</strong> {{ narudzbina.adresaDostave }}</p>
+    <p><strong>Kontakt:</strong> {{ narudzbina.kontaktTelefon }}</p>
+
+    <div class="artikli-container">
+      <div class="artikal-card" *ngFor="let artikal of narudzbina.artikli">
+        <img
+          [src]="getArtikalImage(artikal.slike)"
+          alt="Artikal slika"
+          class="artikal-image"
+        />
+        <div class="artikal-info">
+          <h3>{{ artikal.tip }}</h3>
+          <p>Veličina: {{ artikal.velicina }}</p>
+          <p>Boja: {{ artikal.boja }}</p>
+          <p>Cena: {{ artikal.cena }} din</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Ukupna cena: {{ narudzbina.ukupnaCena }} din</p>
+
+    <div class="reviews">
+      <h4>Recenzija od {{ narudzbina.imeKupca }} {{ narudzbina.prezimeKupca }}</h4>
+
+      <div *ngIf="narudzbina.recenzije">
+        <span *ngFor="let s of getStarsArray(narudzbina.recenzije.ocena)" class="star">★</span>
+        <span *ngFor="let s of getStarsArray(5 - narudzbina.recenzije.ocena)" class="star empty">☆</span>
+
+        <h4>Komentar: {{ narudzbina.recenzije.komentar }}</h4>
+      </div>
+
+      <div *ngIf="!narudzbina.recenzije" class="artikal-info">
+        <p>Nema recenzija za ovu porudžbinu.</p>
+      </div>
+    </div>
+  </div>
+</div>

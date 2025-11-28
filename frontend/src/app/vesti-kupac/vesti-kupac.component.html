@@ -1,0 +1,19 @@
+<div *ngFor="let prodavnica of omiljeneProdavnice">
+    <h2>Prodavnica: {{prodavnica.ime}}</h2>
+    <h3>Novi artikli: </h3>
+    <div class="artikli-container">
+    <div class="artikal-card" *ngFor="let artikal of noviArtikli" >
+      <div class="favourite-icon" (click)="toggleFavourite(artikal._id)">
+        <i *ngIf="isFavourite(artikal._id)" class="fas fa-heart"></i> <!-- Puno srce -->
+        <i *ngIf="!isFavourite(artikal._id)" class="far fa-heart"></i> <!-- Prazno srce -->
+      </div>
+  
+      <img [src]="getArtikalImage(artikal.slike)" alt="Artikal slika" class="artikal-image" />
+      <div class="artikal-info">
+        <p>Veličina: {{ artikal.velicina }}</p>
+        <p>Cena: {{ artikal.cena }} din</p>
+      
+      </div>
+    </div>
+  </div>
+</div>

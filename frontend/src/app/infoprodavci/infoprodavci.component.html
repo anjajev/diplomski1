@@ -1,0 +1,332 @@
+<div class="profile-page">
+  <!-- Header kao Instagram profil -->
+  <div class="profile-header">
+    <!-- Levo: profilna -->
+    <div class="profile-avatar">
+      <div class="avatar-circle">
+        <img
+          *ngIf="profilnaSlika; else avatarPlaceholder"
+          [src]="getProdavnicaImage()"
+          alt="Profilna slika"
+        />
+        <ng-template #avatarPlaceholder>
+          <div class="avatar-placeholder">SH</div>
+        </ng-template>
+      </div>
+
+      <label for="profileImageInput" class="change-avatar-link">
+        Promeni profilnu
+      </label>
+      <input
+        type="file"
+        id="profileImageInput"
+        (change)="onImageSelected($event)"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Desno: ime, bio, statistika -->
+    <div class="profile-info">
+      <div class="profile-title-row">
+        <h1 class="store-name">
+          {{ storeForm.get('ime')?.value || 'Ime prodavnice' }}
+        </h1>
+        <button type="button" class="edit-profile-btn" (click)="toggleEdit()">
+          Uredi profil
+        </button>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat">
+          <span class="stat-number">{{ stats?.artikli || 0 }}</span>
+          <span class="stat-label">artikala</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{{ stats?.porudzbine || 0 }}</span>
+          <span class="stat-label">porudžbina</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{{ stats?.rating || '4.9' }}</span>
+          <span class="stat-label">ocena</span>
+        </div>
+      </div>
+
+      <p class="store-bio">
+        {{
+          storeForm.get('opis')?.value ||
+            'Dodajte kratak opis prodavnice, stil, veličine i politiku slanja.'
+        }}
+      </p>
+
+      <div class="profile-meta">
+        <span *ngIf="storeForm.get('adresa')?.value">
+          📍 {{ storeForm.get('adresa')?.value }}
+        </span>
+        <span *ngIf="storeForm.get('radnoVreme')?.value">
+          🕒 {{ storeForm.get('radnoVreme')?.value }}
+        </span>
+        <span *ngIf="storeForm.get('kontaktInfo')?.value">
+          ☎ {{ storeForm.get('kontaktInfo')?.value }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline forma za uređivanje profila -->
+  <div
+    class="profile-edit-inline"
+    id="profile-edit-inline"
+    *ngIf="isEditingProfile"
+  >
+    <h2>Uredi podatke o prodavnici</h2>
+
+    <form [formGroup]="storeForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ime">Ime prodavnice</label>
+          <input
+            type="text"
+            id="ime"
+            formControlName="ime"
+            placeholder="Unesite ime prodavnice"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="adresa">Adresa</label>
+          <input
+            type="text"
+            id="adresa"
+            formControlName="adresa"
+            placeholder="Unesite adresu prodavnice"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="opis">Opis (bio)</label>
+        <textarea
+          id="opis"
+          formControlName="opis"
+          placeholder="Kratak opis prodavnice, stil, veličine, politika slanja..."
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="radnoVreme">Radno vreme</label>
+          <input
+            type="text"
+            id="radnoVreme"
+            formControlName="radnoVreme"
+            placeholder="npr. Pon–Pet 10–18h"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="kontaktInfo">Kontakt informacije</label>
+          <input
+            type="text"
+            id="kontaktInfo"
+            formControlName="kontaktInfo"
+            placeholder="Telefon, Instagram @username..."
+          />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="!storeForm.valid">
+          Sačuvaj promene
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabs kao na Instagramu -->
+  <div class="profile-tabs">
+    <button class="tab active">Artikli</button>
+    <button class="tab">O prodavnici</button>
+    <button class="tab">Recenzije</button>
+  </div>
+
+  <!-- Glavni deo: grid artikala -->
+  <div class="profile-main">
+    <div class="profile-grid" *ngIf="artikli && artikli.length > 0; else noItems">
+      
+      <!-- Jedna kartica artikla -->
+      <div
+        class="profile-grid-item"
+        *ngFor="let artikal of artikli"
+        [routerLink]="['/artikal', artikal._id]"
+      >
+        <div class="grid-image-wrapper">
+
+          <!-- ✏️ EDIT IKONICA – NOVO -->
+         <button 
+            class="edit-icon-btn grid-edit-icon"
+            (click)="openEditModal(artikal, $event)">
+            ✏️
+          </button>
+
+          <img
+            [src]="getCardImage(artikal)"
+            alt="Artikal slika"
+            class="grid-image"
+          />
+
+          <!-- Strelice za više slika -->
+          <button
+            class="grid-arrow left"
+            *ngIf="artikal.slike && artikal.slike.length > 1"
+            (click)="prevCardImage(artikal, $event)"
+          >
+            ‹
+          </button>
+          <button
+            class="grid-arrow right"
+            *ngIf="artikal.slike && artikal.slike.length > 1"
+            (click)="nextCardImage(artikal, $event)"
+          >
+            ›
+          </button>
+        </div>
+
+        <div class="grid-item-info">
+          <span class="grid-item-price">{{ artikal.cena }} RSD</span>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noItems>
+      <div class="profile-grid no-items">
+        Trenutno nemate nijedan artikal. Dodajte svoj prvi komad odeće! ✨
+      </div>
+    </ng-template>
+  </div>
+
+<!-- MODAL ZA IZMENE ARTIKLA -->
+<div
+  class="edit-modal-overlay"
+  *ngIf="showEditModal"
+  (click)="closeEditModal()"
+>
+  <div
+    class="edit-modal"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="edit-modal-header">
+      <h2>Izmeni artikal</h2>
+      <button
+        type="button"
+        class="edit-close-btn"
+        (click)="closeEditModal()"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div class="edit-modal-body">
+      <!-- Levo: thumbnail slike -->
+      <div class="edit-modal-thumbs" *ngIf="selectedArtikal?.slike?.length">
+        <div
+          class="thumb-item"
+          *ngFor="let slika of selectedArtikal?.slike; let i = index"
+          [class.active]="i === selectedImageIndex"
+          (click)="selectImage(i, $event)"
+        >
+          <img [src]="getModalThumb(slika)" alt="thumb" />
+          <span class="thumb-label" *ngIf="i === selectedImageIndex">
+            Naslovna
+          </span>
+        </div>
+      </div>
+
+      <!-- Sredina: veliki preview sa strelicama -->
+      <div class="edit-modal-preview" *ngIf="selectedArtikal">
+        <button
+          class="preview-arrow left"
+          type="button"
+          (click)="prevModalImage($event)"
+        >
+          ‹
+        </button>
+
+        <img
+          [src]="getSelectedModalImage()"
+          alt="Artikal slika"
+          class="preview-image"
+        />
+
+        <button
+          class="preview-arrow right"
+          type="button"
+          (click)="nextModalImage($event)"
+        >
+          ›
+        </button>
+      </div>
+
+      <!-- Desno: forma -->
+      <form
+        [formGroup]="editForm"
+        class="edit-modal-form"
+        (ngSubmit)="saveArtikalChanges()"
+      >
+        <div class="form-group">
+          <label for="tip">Tip</label>
+          <input id="tip" type="text" formControlName="tip" />
+        </div>
+
+        <div class="form-group">
+          <label for="kategorija">Kategorija</label>
+          <select id="kategorija" formControlName="kategorija">
+            <option value="Ženski">Ženski</option>
+            <option value="Muški">Muški</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="velicina">Veličina</label>
+          <input id="velicina" type="text" formControlName="velicina" />
+        </div>
+
+        <div class="form-group">
+          <label for="boja">Boja</label>
+          <input id="boja" type="text" formControlName="boja" />
+        </div>
+
+        <div class="form-group">
+          <label for="cena">Cena (RSD)</label>
+          <input
+            id="cena"
+            type="number"
+            formControlName="cena"
+            min="0"
+          />
+        </div>
+
+        <div class="edit-modal-actions">
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="closeEditModal()"
+          >
+            Otkaži
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="!editForm.valid"
+            class="save-btn"
+          >
+            Sačuvaj izmene
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+</div>

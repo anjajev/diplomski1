@@ -1,0 +1,79 @@
+<div class="store-profile-page">
+  <!-- Gornji deo stranice -->
+  <div class="upper-section">
+    <!-- Leva strana - Podaci o prodavnici -->
+    <div class="store-info">
+      <div class="store-header">
+        <h2>{{ prodavnica.ime }}</h2>
+        <img [src]="getStoreProfileImage(prodavnica.slika)" alt="Slika prodavnice" class="profile-img">
+      </div>
+      
+      <div class="store-description">
+        <p><strong>Opis:</strong> {{ prodavnica.opis }}</p>
+        <p><strong>Adresa:</strong> {{ prodavnica.adresa }}</p>
+        <p><strong>RadnoVreme:</strong> {{ prodavnica.radnoVreme }}</p>
+        <p><strong>kontaktInfo:</strong> {{ prodavnica.kontaktInfo }}</p>
+
+        <button class="add-to-favorites-btn" (click)="addToFavorites()">Dodaj u omiljene prodavnice</button>
+      </div>
+    </div>
+     <div class="reviews-section">
+    <h3>Recenzije prodavnice</h3>
+    <div class="carousel">
+      <button class="carousel-control left" (click)="previousReview()" [disabled]="currentReviewIndex === 0">&#10094;</button>
+      
+      <div class="carousel-container">
+        <div *ngFor="let review of recenzije; let i = index" [class.active]="i === currentReviewIndex" class="review-card">
+          <div class="review-header">
+            <div class="stars">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <span class="star" [class.filled]="star <= review.ocena">&#9733;</span>
+              </ng-container>
+            </div>
+            <p class="review-author">{{ review.kupac.ime }}</p>
+          </div>
+          <p class="review-comment">{{ review.komentar }}</p>
+        </div>
+      </div>
+      
+      <button class="carousel-control right" (click)="nextReview()" [disabled]="currentReviewIndex === recenzije.length - 1">&#10095;</button>
+    </div>
+  </div>
+    
+    
+  
+    <!-- Desna strana - Lokacija prodavnice na mapi -->
+    <div class="store-location">
+      <h3>Lokacija prodavnice</h3>
+      <div id="map" class="google-map"></div>
+    </div>
+  </div>
+  
+
+  <!-- Donji deo stranice - Proizvodi iz prodavnice -->
+  <div class="related-products">
+    <h3>Proizvodi iz prodavnice {{ prodavnica.ime }}</h3>
+  
+    <!-- Filter za kategorije -->
+    <div class="category-filters">
+      <a href="javascript:void(0)" *ngFor="let category of kategorije" (click)="setCategoryFilter(category)">
+        {{ category }}
+      </a>
+      <a href="javascript:void(0)" (click)="setCategoryFilter('')">Svi proizvodi</a>
+    </div>
+  
+    <!-- Scrollable container -->
+    <div class="artikli-container-wrapper">
+      <div class="artikli-container" #artikliContainer>
+        <div class="artikal-card" *ngFor="let artikal of filteredArtikli" [routerLink]="['/artikal', artikal._id]">
+          <img [src]="getProductImage(artikal.slike)" alt="Slika artikla" class="artikal-image" />
+          <div class="artikal-info">
+            <p>{{ artikal.tip }}</p>
+            <p>{{ artikal.cena }} din</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

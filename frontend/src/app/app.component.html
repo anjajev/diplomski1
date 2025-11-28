@@ -1,0 +1,39 @@
+<div id = page-wrapper>
+<header>
+  <div class="container">
+    <h1 class="logo" routerLink = "">SecondHandApp</h1>
+    <nav>
+      <ul>
+        <li *ngIf="isKupac() && isLoggedIn()"><a href="profilkorisnik/korpa"><i class="bi bi-cart"></i>
+          <span *ngIf="cartCount > 0" class="cart-count">{{ cartCount }}</span>
+        </a></li>
+        <li *ngIf="isKupac() && isLoggedIn()"><a href="profilkorisnik/favouriteclothes"><i class="bi bi-heart"></i>
+          <span *ngIf="favoriteCount > 0" class="favorite-count">{{ favoriteCount }}</span>
+        </a></li>
+        <!-- Dinamički profil link -->
+        <li *ngIf="isKupac() && isLoggedIn()">
+          <a routerLink="/profilkorisnik">Profil</a> <!-- Poziv funkcije -->
+        </li>
+        <li *ngIf="!isKupac() && isLoggedIn()" >
+          <a routerLink="/profilprodavac">Profil</a> <!-- Poziv funkcije -->
+        </li>
+        <!-- Prikazuje se samo ako korisnik nije prijavljen -->
+        <li *ngIf="!isLoggedIn()"><a routerLink="/login">Prijavi se</a></li>
+        
+        <li *ngIf="!isLoggedIn()"><a routerLink="/register">Registruj se</a></li>
+
+        <!-- Prikazuje se samo ako korisnik jeste prijavljen -->
+        <li *ngIf="isLoggedIn()"><a href="#" (click)="logout()">Odjavi se</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet> 
+</main>
+
+<footer>
+  <p>© 2024 SecondHandApp. Sva prava zadržana.</p>
+</footer>
+</div>

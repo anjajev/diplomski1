@@ -1,0 +1,97 @@
+<div class="shop-girls-page">
+
+  <div class="shop-layout">
+    <!-- Sidebar za tipove artikala -->
+    
+    <div class="tipovi-sidebar">
+            <ul class="tipovi-list">
+        <li><a  (click)="setTipFilter('')">Svi tipovi</a></li>
+        <li><a  (click)="setTipFilter('majica')">Majica</a></li>
+        <li><a  (click)="setTipFilter('haljina')">Haljina</a></li>
+        <li><a  (click)="setTipFilter('farmerice')">Farmerice</a></li>
+        <li><a  (click)="setTipFilter('jakna')">Jakna</a></li>
+        <li><a  (click)="setTipFilter('duks')">Duks</a></li>
+        <li><a  (click)="setTipFilter('suknja')">Suknja</a></li>
+        <li><a  (click)="setTipFilter('kaput')">Kaput</a></li>
+        <li><a  (click)="setTipFilter('kosulja')">Košulja</a></li>
+        <li><a  (click)="setTipFilter('sorts')">Šorts</a></li>
+        <li><a  (click)="setTipFilter('trenirka')">Trenerka</a></li>
+        <li><a  (click)="setTipFilter('bluza')">Bluza</a></li>
+      </ul>
+    </div>
+
+    
+    <!-- Glavni sadržaj sa filterima i artiklima -->
+     
+    <div class="main-content">
+      <div *ngIf="!isLoggedIn()" class="login-prompt">
+        <p>Za prijavljivanje ili registraciju <a routerLink="/login">kliknite ovde</a>.</p>
+      </div>
+      
+
+      <div class="filter-container">
+        <div class="filters-row">
+          <!-- Filter za veličinu -->
+          <div class="filter-group">
+            <label for="velicina">Veličina:</label>
+            <select id="velicina" [(ngModel)]="selectedVelicina" (change)="applyFilters()">
+              <option value="">Sve veličine</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+              <option value="XXXL">XXXL</option>
+              <option value="Jedna veličina">Jedna veličina</option>
+            </select>
+          </div>
+
+          <!-- Filter za boju -->
+          <div class="filter-group">
+            <label for="boja">Boja:</label>
+            <select id="boja" [(ngModel)]="selectedBoja" (change)="applyFilters()">
+              <option value="">Sve boje</option>
+              <option value="bela">Bela</option>
+              <option value="crna">Crna</option>
+              <option value="crvena">Crvena</option>
+              <option value="plava">Plava</option>
+              <option value="zelena">Zelena</option>
+              <option value="žuta">Žuta</option>
+              <option value="narandžasta">Narandžasta</option>
+              <option value="ljubičasta">Ljubičasta</option>
+            </select>
+          </div>
+
+          <!-- Filter za maksimalnu cenu -->
+          <div class="filter-group">
+            <label for="maxCena">Max Cena:</label>
+            <input type="number" id="maxCena" placeholder="Max" [(ngModel)]="maxCena" (input)="applyFilters()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Prikaz artikala -->
+      <!-- Prikaz artikala -->
+<div class="artikli-container">
+  <div class="artikal-card" *ngFor="let artikal of filteredArtikli" [routerLink]="['/artikal', artikal._id]">
+    <div class="favourite-icon" (click)="toggleFavourite(artikal._id); $event.stopPropagation()">
+      <i *ngIf="isFavourite(artikal._id)" class="fas fa-heart"></i> <!-- Puno srce -->
+      <i *ngIf="!isFavourite(artikal._id)" class="far fa-heart"></i> <!-- Prazno srce -->
+    </div>
+
+    <img [src]="getArtikalImage(artikal.slike)" alt="Artikal slika" class="artikal-image" />
+
+    <div class="artikal-info">
+      <p>Veličina: {{ artikal.velicina }}</p>
+      <p>Cena: {{ artikal.cena }} din</p>
+    </div>
+
+    <!-- Dugme za dodavanje u korpu, prikazano na hover -->
+    <button class="add-to-cart-btn" (click)="addToCart(artikal._id); $event.stopPropagation()">Dodaj u korpu</button>
+  </div>
+</div>
+
+      
+  </div>
+</div>

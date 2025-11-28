@@ -1,0 +1,102 @@
+/* Glavni kontejner za listu narudžbina */
+.order-list {
+    padding: 20px;
+  }
+  
+  .order-card {
+    background-color: #fdf4e3;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #552437;
+  }
+  
+  .order-card p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  .artikli-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  
+  .artikal-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .artikal-card:hover {
+    transform: scale(1.05);
+  }
+
+  .success-message {
+    color: green;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #e7f6e7;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+  }
+  
+  .artikal-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .artikal-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #552437;
+  }
+  
+  .artikal-info p {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  button {
+    margin-top: 15px;
+    background-color: #f1a787;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #e09e7c;
+  }
+  
+  .divider {
+    margin-top: 20px;
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin-bottom: 20px;
+  }
+  

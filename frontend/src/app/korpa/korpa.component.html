@@ -1,0 +1,95 @@
+<div class="artikli-container">
+  <div class="artikal-card" *ngFor="let artikal of korpaArtikli">
+    <img
+      [src]="getArtikalImage(artikal.slike)"
+      alt="Artikal slika"
+      class="artikal-image"
+    />
+    <div class="artikal-info">
+      <h3>{{ artikal.tip }}</h3>
+      <p>Veličina: {{ artikal.velicina }}</p>
+      <p>Boja: {{ artikal.boja }}</p>
+      <p>Cena: {{ artikal.cena }} din</p>
+    </div>
+
+    <!-- Dugme za uklanjanje iz korpe koje se pojavljuje na hover -->
+    <div class="remove-from-cart" (click)="removeFromCart(artikal._id)">
+      Izbaci iz korpe
+    </div>
+  </div>
+</div>
+
+<div *ngIf="korpaArtikli.length > 0">
+  <button class="buy-button" (click)="openPurchaseModal()">Kupi</button>
+</div>
+
+<div *ngIf="korpaArtikli.length == 0" class="message">
+  <p>Nemate nijedan artikal u korpi!</p>
+</div>
+
+<!-- Poruka o uspešnoj kupovini -->
+<p *ngIf="kupovinaUspesna" class="success-message">
+  Uspešno ste kupili proizvode!
+</p>
+
+<!-- Modalni prozor za unos podataka -->
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closePurchaseModal()">&times;</span>
+    <h3>Podaci za dostavu</h3>
+
+    <form [formGroup]="purchaseForm" (ngSubmit)="onSubmitPurchase()">
+      <div class="form-group">
+        <label for="ime">Ime:</label>
+        <input
+          type="text"
+          id="ime"
+          formControlName="ime"
+          placeholder="Unesite ime"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="prezime">Prezime:</label>
+        <input
+          type="text"
+          id="prezime"
+          formControlName="prezime"
+          placeholder="Unesite prezime"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="adresa">Adresa:</label>
+        <input
+          type="text"
+          id="adresa"
+          formControlName="adresa"
+          placeholder="Unesite adresu"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="kontakt">Kontakt telefon:</label>
+        <input
+          type="text"
+          id="kontakt"
+          formControlName="kontakt"
+          placeholder="Unesite kontakt telefon"
+        />
+      </div>
+
+      <div class="form-group">
+        <p>Ukupna cena: {{ ukupnaCena }} din</p>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!purchaseForm.valid"
+        class="potvrda"
+      >
+        Potvrdi kupovinu
+      </button>
+    </form>
+  </div>
+</div>

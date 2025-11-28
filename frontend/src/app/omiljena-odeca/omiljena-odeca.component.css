@@ -1,0 +1,56 @@
+.artikli-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .artikal-card {
+    position: relative;
+    background-color: #fdf4e3;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .artikal-image {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+
+.favourite-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #e74c3c; /* Boja za puno srce */
+    transition: color 0.3s ease;
+  }
+  
+  .favourite-icon i {
+    transition: transform 0.2s ease;
+  }
+  
+  .favourite-icon:hover i {
+    transform: scale(1.2); /* Povećava ikonu srca pri hover-u */
+  }
+  
+  /* Boja za puno srce */
+  .fas.fa-heart {
+    color: #e74c3c; /* Crvena boja za puno srce */
+  }
+  
+  /* Boja za prazno srce */
+  .far.fa-heart {
+    color: #bdc3c7; /* Svetlosiva boja za prazno srce */
+  }
+  
+  .favourite-icon:hover .fas.fa-heart,
+  .favourite-icon:hover .far.fa-heart {
+    color: #c0392b; /* Tamnija crvena pri hover-u za puno srce */
+  }
+  

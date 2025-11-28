@@ -1,0 +1,220 @@
+.shop-layout {
+  display: flex;
+  background-color: #FFD7C4;
+}
+
+/* Stil za sidebar sa tipovima */
+.tipovi-sidebar {
+  width: 10%; /* Sidebar zauzima 20% širine stranice */
+  background-color: #fdf4e3; /* Svetla narandžasta boja pozadine */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Blaga senka */
+  height: 100vh; /* Sidebar zauzima celu visinu stranice */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centriranje elemenata */
+  font-size: 24px;
+  color: #552437; /* Tamna boja naslova */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.tipovi-list {
+  list-style-type: none; /* Bez defaultnih tačaka */
+  padding: 0;
+  width: 100%; /* Sidebar zauzima celu širinu */
+}
+
+.tipovi-list li {
+  font-size: 24px;
+  padding: 15px 0; /* Prostor između tipova */
+  cursor: pointer;
+  color: #8b3e3e; /* Tamno crvena boja teksta */
+  transition: color 0.3s ease, font-size 0.3s ease; /* Glatka promena boje i veličine */
+  text-align: center; /* Centriran tekst */
+}
+
+.tipovi-list li:hover {
+  color: #7695FF; /* Promena boje na hover */
+  font-size: 26px; /* Blago uvećanje teksta na hover */
+}
+
+
+.main-content {
+  width: 80%; /* Glavni sadržaj zauzima 80% širine */
+  padding: 20px;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.filters-row {
+  display: flex;
+  gap: 10px;
+}
+
+.artikli-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.artikal-card {
+  position: relative;
+  background-color: #fdf4e3;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer; /* Promena kursora na pointer da bude jasno da je kliktabilno */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.artikal-card:hover {
+  transform: scale(1.05); /* Blago povećanje kartice na hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Dodavanje senke na hover */
+}
+
+.artikal-image {
+  max-width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.favourite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #e74c3c; /* Boja za puno srce */
+  transition: color 0.3s ease;
+}
+
+.favourite-icon i {
+  transition: transform 0.2s ease;
+}
+
+.favourite-icon:hover i {
+  transform: scale(1.2); /* Povećava ikonu srca pri hover-u */
+}
+
+/* Boja za puno srce */
+.fas.fa-heart {
+  color: #e74c3c; /* Crvena boja za puno srce */
+}
+
+/* Boja za prazno srce */
+.far.fa-heart {
+  color: #bdc3c7; /* Svetlosiva boja za prazno srce */
+}
+
+.favourite-icon:hover .fas.fa-heart,
+.favourite-icon:hover .far.fa-heart {
+  color: #c0392b; /* Tamnija crvena pri hover-u za puno srce */
+}
+
+/* Stil za filtere */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.filter-group label {
+  font-weight: bold;
+  color: #552437; /* Tamnija crvena boja za tekst */
+  margin-bottom: 5px;
+}
+
+.filter-group select,
+.filter-group input[type="number"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 200px; /* Širina polja */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Animacija pri fokusu */
+}
+
+.filter-group select:focus,
+.filter-group input[type="number"]:focus {
+  border-color: #f1a787; /* Svetla narandžasta boja pri fokusu */
+  box-shadow: 0 0 8px rgba(241, 167, 135, 0.5); /* Senka pri fokusu */
+}
+
+.filter-group select {
+  background-color: #fff5e6; /* Svetla boja pozadine */
+  color: #333; /* Tamna boja slova */
+}
+
+.filter-group input[type="number"] {
+  background-color: #fff5e6;
+  color: #7695FF;
+}
+
+.filter-group select:hover,
+.filter-group input[type="number"]:hover {
+  border-color: #e09e7c; /* Blago tamnija narandžasta pri hoveru */
+}
+
+.filters-row {
+  display: flex;
+  gap: 15px; /* Razmak između filtera */
+  align-items: center;
+}
+
+.filter-group select,
+.filter-group input {
+  min-width: 150px;
+  max-width: 200px; /* Kontrola širine */
+}
+
+.add-to-cart-btn {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f1a787;
+  color: white;
+  font-family: 'Instrument Serif', serif;
+
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;  /* Skriveno dok nije hover */
+  transition: opacity 0.3s ease;
+}
+
+.artikal-card:hover .add-to-cart-btn {
+  opacity: 1;  /* Pojavljuje se na hover */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e09e7c;
+}
+
+.login-prompt {
+
+  color: #8b3e3e;
+  padding: 15px;
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 20px;
+
+}
+
+.login-prompt a {
+  color: #8b3e3e;
+  text-decoration: underline;
+}
+
+.login-prompt a:hover {
+  color: #552437;
+  text-decoration: none;
+}

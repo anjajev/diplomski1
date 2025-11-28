@@ -1,0 +1,15 @@
+<div class="favorite-stores-container">
+    <h2>Omiljene prodavnice</h2>
+    
+    <div *ngFor="let prodavnica of omiljeneProdavnice" class="favorite-store">
+      <div class="store-header">
+        <img [src]="getStoreProfileImage(prodavnica.slika)" alt="Profilna slika" class="store-image" />
+        <h3><a [routerLink]="['/prodavac', prodavnica._id]" class="store-link">{{ prodavnica.ime }}</a></h3>
+      </div>
+      <p>{{ prodavnica.opis }}</p>
+      <p>Adresa: {{ prodavnica.adresa }}</p>
+      <p>Kontakt telefon: {{ prodavnica.kontaktInfo }}</p>
+      <hr class="divider" />
+    </div>
+  </div>
+  
